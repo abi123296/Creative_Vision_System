@@ -1,0 +1,228 @@
+<div id="printer-module" class="module-container animate-fade-in">
+
+    <!-- MODULE HEADER -->
+    <div class="module-header glass-card" style="display:flex; justify-content:space-between; align-items:center; padding: 30px; margin-bottom: 25px;">
+        <div class="header-content">
+            <h1 style="font-size: 2rem; margin-bottom: 5px; color: #fff; letter-spacing: -0.5px;">Printer Management</h1>
+            <p style="color: var(--text-low); font-weight: 500;">Network & USB Devices · Live Tracking</p>
+        </div>
+        <div class="header-stats">
+            <button class="primary-btn" onclick="openAddPrinterModal()" style="display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-print"></i> Add Printer
+            </button>
+        </div>
+    </div>
+
+    <!-- PRINTER CARDS -->
+    <div class="section-title">
+        <i class="fa-solid fa-print"></i> Hardware Devices
+    </div>
+
+    <div class="printers-grid" id="printersGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 30px;">
+        <!-- Injected via printer.js -->
+    </div>
+
+    <!-- LIVE ONGOING JOBS -->
+    <div class="section-title" style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+        <div><i class="fa-solid fa-list-check"></i> Live Printing Queue</div>
+        <div class="pulse-dot-wrapper" style="font-size: 13px; font-weight: bold; color: #10b981; display:flex; align-items:center; gap:8px;">
+            <span class="pulse-dot"></span> Live Tracking
+        </div>
+    </div>
+
+    <div class="glass-card" style="padding: 25px; margin-bottom: 40px; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+            <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-low);">
+                    <th style="padding: 15px; font-weight: 700;">Document Name</th>
+                    <th style="padding: 15px; font-weight: 700;">Target Printer</th>
+                    <th style="padding: 15px; font-weight: 700;">Time Sent</th>
+                    <th style="padding: 15px; font-weight: 700;">Pages</th>
+                    <th style="padding: 15px; font-weight: 700;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-row-hover" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 15px; font-weight: 600;">Final_Project_Report.pdf</td>
+                    <td style="padding: 15px; color: #ccc;">Xerox 5485</td>
+                    <td style="padding: 15px; color: #888;">10:24 AM</td>
+                    <td style="padding: 15px; color: #ccc;">15 Pages</td>
+                    <td style="padding: 15px; color:#8eff9e; font-weight:bold;"><i style="margin-right: 5px;">⚙️</i>Printing... (5/15)</td>
+                </tr>
+                <tr class="table-row-hover" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 15px; font-weight: 600;">invoice_1029.docx</td>
+                    <td style="padding: 15px; color: #ccc;">HP LaserJet Pro</td>
+                    <td style="padding: 15px; color: #888;">10:26 AM</td>
+                    <td style="padding: 15px; color: #ccc;">1 Page</td>
+                    <td style="padding: 15px; color: #ffd166; font-weight:bold;"><i style="margin-right: 5px;">⏳</i>Queued</td>
+                </tr>
+                <tr class="table-row-hover">
+                    <td style="padding: 15px; font-weight: 600;">A/L_Past_Papers_Pack.pdf</td>
+                    <td style="padding: 15px; color: #ccc;">Epson L3110 Tank</td>
+                    <td style="padding: 15px; color: #888;">10:28 AM</td>
+                    <td style="padding: 15px; color: #ccc;">22 Pages</td>
+                    <td style="padding: 15px; color: #ffd166; font-weight:bold;"><i style="margin-right: 5px;">⬇️</i>Receiving Data...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= MODALS ================= -->
+    <!-- ADD PRINTER MODAL -->
+    <div id="addPrinterModal" class="modal-overlay">
+        <div class="modal-content modal-pop" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>🖨️ Add New Printer</h2>
+                <button class="close-modal" onclick="closeAddPrinterModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Printer Name & Model</label>
+                <div class="input-area">
+                    <input type="text" id="addPrinterName" class="balance-input" placeholder="E.g. Canon G3000" style="font-size: 1.1rem; width:100%;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Upload Printer Image (Optional)</label>
+                <div class="input-area">
+                    <input type="file" id="addPrinterImage" accept="image/*" class="balance-input" style="font-size: 1rem; width:100%; border:none; padding:0;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Initial Print Counter</label>
+                <div class="input-area">
+                    <input type="number" id="addPrintCounter" class="balance-input" placeholder="E.g. 500" style="font-size: 1.1rem; width:100%;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Global Toner Level (%)</label>
+                <div class="input-area">
+                    <select id="addTonerLevel" class="balance-input cursor-pointer" style="font-size: 1.1rem; width:100%;">
+                        <option value="100" style="background:#222;">Full (100%)</option>
+                        <option value="75" style="background:#222;">75%</option>
+                        <option value="50" style="background:#222;">50%</option>
+                        <option value="25" style="background:#222;">25%</option>
+                        <option value="0" style="background:#222;">Empty (0%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 25px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Printer Type</label>
+                <div class="input-area">
+                    <select id="addIsColor" class="balance-input cursor-pointer" style="font-size: 1.1rem; width:100%;">
+                        <option value="0" style="background:#222;">⚫ Black & White (Monochrome)</option>
+                        <option value="1" style="background:#222;">🎨 Color Printer (CMYK)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content: flex-end; gap: 15px;">
+                <button class="edit-action-btn" style="padding: 12px 25px;" onclick="closeAddPrinterModal()">Cancel</button>
+                <button class="primary-btn" style="padding: 12px 25px;" onclick="saveNewPrinter()">Save Printer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATE STATUS MODAL -->
+    <div id="printerModal" class="modal-overlay">
+        <div class="modal-content modal-pop" style="max-width: 480px;">
+            <div class="modal-header">
+                <h2>⚙️ Update Status</h2>
+                <button class="close-modal" onclick="closeEditPrinterModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <h3 id="modalPrinterName" style="margin-bottom: 20px; color: var(--accent); font-size: 1rem;">Printer Name</h3>
+
+            <input type="hidden" id="editPrinterId">
+            <input type="hidden" id="editIsColor">
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Global Print Counter (Odometer)</label>
+                <div class="input-area">
+                    <input type="number" id="printCounter" class="balance-input" placeholder="E.g. 154000" style="font-size: 1.4rem; width:100%;">
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom: 25px;">
+                <div class="input-container">
+                    <label style="display:block; font-size:12px; font-weight:bold; color: #aaa; margin-bottom:5px;">⚫ Black (K)</label>
+                    <div class="input-area">
+                        <select id="tonerBlack" class="balance-input cursor-pointer" style="font-size: 1rem; width:100%;">
+                            <option value="100" style="background:#222;">Full (100%)</option>
+                            <option value="75" style="background:#222;">Good (75%)</option>
+                            <option value="50" style="background:#222;">Half (50%)</option>
+                            <option value="25" style="background:#222;">Low (25%)</option>
+                            <option value="0" style="background:#222;">Empty (0%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-container color-toner-group" style="display:none;">
+                    <label style="display:block; font-size:12px; font-weight:bold; color: #00e5ff; margin-bottom:5px;">🔵 Cyan (C)</label>
+                    <div class="input-area">
+                        <select id="tonerCyan" class="balance-input cursor-pointer" style="font-size: 1rem; width:100%;">
+                            <option value="100" style="background:#222;">Full (100%)</option>
+                            <option value="75" style="background:#222;">Good (75%)</option>
+                            <option value="50" style="background:#222;">Half (50%)</option>
+                            <option value="25" style="background:#222;">Low (25%)</option>
+                            <option value="0" style="background:#222;">Empty (0%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-container color-toner-group" style="display:none;">
+                    <label style="display:block; font-size:12px; font-weight:bold; color: #ff00ff; margin-bottom:5px;">🟣 Magenta (M)</label>
+                    <div class="input-area">
+                        <select id="tonerMagenta" class="balance-input cursor-pointer" style="font-size: 1rem; width:100%;">
+                            <option value="100" style="background:#222;">Full (100%)</option>
+                            <option value="75" style="background:#222;">Good (75%)</option>
+                            <option value="50" style="background:#222;">Half (50%)</option>
+                            <option value="25" style="background:#222;">Low (25%)</option>
+                            <option value="0" style="background:#222;">Empty (0%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-container color-toner-group" style="display:none;">
+                    <label style="display:block; font-size:12px; font-weight:bold; color: #ffff00; margin-bottom:5px;">🟡 Yellow (Y)</label>
+                    <div class="input-area">
+                        <select id="tonerYellow" class="balance-input cursor-pointer" style="font-size: 1rem; width:100%;">
+                            <option value="100" style="background:#222;">Full (100%)</option>
+                            <option value="75" style="background:#222;">Good (75%)</option>
+                            <option value="50" style="background:#222;">Half (50%)</option>
+                            <option value="25" style="background:#222;">Low (25%)</option>
+                            <option value="0" style="background:#222;">Empty (0%)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content: flex-end; gap: 15px;">
+                <button class="edit-action-btn" style="padding: 12px 25px;" onclick="closeEditPrinterModal()">Cancel</button>
+                <button class="primary-btn" style="padding: 12px 25px;" onclick="saveStatus()">Submit Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE RESOURCES -->
+    <link rel="stylesheet" href="../Printer_management/printer.css?v=1.0.0">
+    <script src="../Printer_management/printer.js?v=1.0.0"></script>
+    <script>
+        // IMMEDIATE SECURITY GUARD
+        (function() {
+            function lock() {
+                if (typeof window.checkPermission === 'function' && !window.checkPermission('Printer Management')) {
+                    // Target by class AND by the specific action it performs
+                    document.querySelectorAll('button[onclick*="openAddPrinterModal"], .header-stats .primary-btn').forEach(el => el.style.display = 'none');
+                }
+            }
+            lock();
+            setTimeout(lock, 500); // Pulse check
+            setTimeout(lock, 1500); // Final check
+        })();
+    </script>
+</div>
