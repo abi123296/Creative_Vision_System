@@ -1,0 +1,214 @@
+<!-- 
+  ========================================================
+  PAGE: login.html
+  PURPOSE: Implemented real-time DB login for Admin & Staff.
+           Added Forgot Password functionality.
+  ======================================================== 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Vision - POS Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .forgot-link {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .forgot-link:hover {
+            color: #fff;
+        }
+
+        .reset-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .reset-card {
+            background: rgba(25, 25, 35, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .reset-card h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .close-reset {
+            float: right;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .close-reset:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="login-container">
+        <!-- LEFT COLUMN -->
+        <div class="login-left">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account</p>
+            </div>
+
+            <div class="role-toggle">
+                <button class="toggle-btn active" id="btn-staff" onclick="switchRole('staff')">Staff</button>
+                <button class="toggle-btn" id="btn-admin" onclick="switchRole('admin')">Admin</button>
+                <div class="toggle-slider" id="toggle-slider"></div>
+            </div>
+
+            <div class="form-slider" id="form-slider-wrapper">
+
+                <!-- STAFF FORM -->
+                <form id="staff-form" class="login-form active-form" onsubmit="return false;">
+                    <div class="input-group">
+                        <label for="staff_username">Staff Username</label>
+                        <input type="text" name="staff_username" id="stf_user" placeholder="Username">
+                    </div>
+                    <div class="input-group">
+                        <label for="staff_password">Password</label>
+                        <input type="password" name="staff_password" id="stf_pass" placeholder="Enter password">
+                    </div>
+                    <span class="forgot-link" onclick="toggleResetModal(true)">Forgot Password?</span>
+                    <button type="button" class="submit-btn text-glow" onclick="forceLogin('staff')">Staff Login</button>
+                </form>
+
+                <!-- ADMIN FORM -->
+                <form id="admin-form" class="login-form" onsubmit="return false;">
+                    <div class="input-group">
+                        <label for="admin_username">Admin Username</label>
+                        <input type="text" name="admin_username" id="adm_user" placeholder="Admin username">
+                    </div>
+                    <div class="input-group">
+                        <label for="admin_password">Admin Password</label>
+                        <input type="password" name="admin_password" id="adm_pass" placeholder="Enter password">
+                    </div>
+                    <br>
+                    <button type="button" class="submit-btn admin-btn text-glow" onclick="forceLogin('admin')">Admin Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="login-right">
+            <div class="motion-ring ring-1"></div>
+            <div class="motion-ring ring-2"></div>
+            <div class="motion-ring ring-3"></div>
+            <div class="branding-content">
+                <div class="logo-box"><img src="../assets/images/Untitled%20design.png" alt="Logo" class="cv-logo"></div>
+                <h2>Creative Vision</h2>
+                <h3>Communication Shop</h3>
+                <p class="welcome-msg">Experience next-level shop management. Please log in to securely access your POS dashboard.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESET MODAL -->
+    <div class="reset-overlay" id="reset-modal">
+        <div class="reset-card">
+            <i class="fa-solid fa-xmark close-reset" onclick="toggleResetModal(false)"></i>
+            <h3>Reset Password</h3>
+            <form id="reset-form">
+                <input type="hidden" name="action" value="reset_password">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="reset_username" placeholder="Your username" required>
+                </div>
+                <div class="input-group">
+                    <label>Registered Phone</label>
+                    <input type="text" name="reset_phone" placeholder="e.g. 077XXXXXXX" required>
+                </div>
+                <div class="input-group">
+                    <label>New Password</label>
+                    <input type="password" name="new_pass" placeholder="Enter new password" required>
+                </div>
+                <button type="button" class="submit-btn text-glow" onclick="forceReset()">Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleResetModal(show) {
+            document.getElementById('reset-modal').style.display = show ? 'flex' : 'none';
+        }
+
+        function forceReset() {
+            const form = document.getElementById('reset-form');
+            const fd = new FormData(form);
+            
+            fetch('index.php', { method: 'POST', body: fd })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.status === 'success') toggleResetModal(false);
+                });
+        }
+
+        function forceLogin(role) {
+            const formId = (role === 'admin') ? 'admin-form' : 'staff-form';
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            formData.append('ajax', 'true');
+
+            const btn = form.querySelector('.submit-btn');
+            const originalTxt = btn.innerText;
+            btn.innerText = "Checking...";
+            btn.disabled = true;
+
+            fetch('index.php', { method: 'POST', body: formData })
+                .then(res => res.json())
+                .then(data => {
+                    btn.innerText = originalTxt;
+                    btn.disabled = false;
+                    if (data.status === 'success') {
+                        window.location.href = data.redirect;
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(err => {
+                    btn.innerText = originalTxt;
+                    btn.disabled = false;
+                    alert("Connection error.");
+                });
+        }
+    </script>
+</body>
+
+</html>

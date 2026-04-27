@@ -1,0 +1,145 @@
+/* ATTENDANCE LOCAL CSS */
+
+.table-row-hover {
+    transition: all 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+[data-theme="light"] .table-row-hover:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Tracking / Scan Visuals */
+.pulse-dot-wrapper { display: flex; align-items: center; gap: 8px; }
+.pulse-dot {
+    width: 10px; height: 10px; background: currentColor;
+    border-radius: 50%; box-shadow: 0 0 10px currentColor;
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+    75%, 100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Micro Action Buttons */
+.mini-icon-btn {
+    background: rgba(255,255,255,0.05); 
+    color: var(--text-high);
+    border: 1px solid var(--card-border); 
+    border-radius: 6px;
+    width: 32px; 
+    height: 32px; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    cursor: pointer; 
+    transition: all 0.2s ease;
+}
+.mini-icon-btn:hover { 
+    background: rgba(255,255,255,0.15); 
+    transform: translateY(-1px);
+}
+[data-theme="light"] .mini-icon-btn { 
+    background: rgba(0,0,0,0.05); 
+    color: var(--text-high);
+}
+[data-theme="light"] .mini-icon-btn:hover { 
+    background: rgba(0,0,0,0.1); 
+}
+
+/* Pulse Color specific to label */
+.stat-active {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 50px;
+}
+
+/* Box Alignments */
+.balance-card {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    gap: 8px;
+    justify-content: center;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-low);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-high);
+}
+
+/* PREMIUM ACTION BUTTONS */
+.finalize-salary-btn, .view-credits-btn {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.finalize-salary-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.view-credits-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.finalize-salary-btn:hover, .view-credits-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.1);
+}
+
+.finalize-salary-btn:active, .view-credits-btn:active {
+    transform: translateY(0) scale(1);
+}
+
+.finalize-salary-btn i, .view-credits-btn i {
+    font-size: 1.1rem;
+}
+
+/* MINI CREDIT BUTTON */
+.add-credit-mini-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-credit-mini-btn:hover {
+    background: #ef4444;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}

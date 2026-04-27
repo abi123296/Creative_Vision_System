@@ -1,0 +1,63 @@
+<!-- 
+  ========================================================
+  UI: Credit & Advance Management (Liquid Glass v2)
+  PURPOSE: Historical tracking and staff summaries.
+  ======================================================== 
+-->
+<link rel="stylesheet" href="../Credit_management/credits.css">
+
+<div class="credits-container">
+    <!-- HEADER SECTION -->
+    <div class="module-header">
+        <div class="header-info">
+            <h1 class="glass-title"><i class="fa-solid fa-hand-holding-dollar"></i> Credit Management</h1>
+            <p class="glass-subtitle">Historical tracking and financial audit logs</p>
+        </div>
+        <div class="header-stats">
+            <div class="mini-stat-card glass-card">
+                <span class="stat-label">Total Outstanding</span>
+                <span class="stat-value" id="globalTotalCredit">Rs. 0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="glass-card filter-bar">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="creditSearch" placeholder="Search staff name..." onkeyup="filterCredits()">
+        </div>
+        <div class="date-filters">
+            <input type="date" id="creditDateFilter" onchange="loadCreditHistory()">
+            <button class="glass-btn secondary" onclick="resetCreditFilters()">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN TABLE AREA -->
+    <div class="glass-card table-section">
+        <div class="table-container">
+            <table class="glass-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Staff Member</th>
+                        <th>Amount</th>
+                        <th>Reason</th>
+                        <th>Authorized By</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="creditsTableBody">
+                    <!-- Data injected via credits.js -->
+                    <tr><td colspan="6" style="text-align:center; padding:50px; color:var(--text-low);">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Loading records...
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../Credit_management/credits.js"></script>

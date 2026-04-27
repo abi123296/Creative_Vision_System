@@ -1,0 +1,251 @@
+<!-- 
+  ========================================================
+  PAGE SNIPPET: staff_management_ui.html
+  PURPOSE: This file contains ONLY the main content for
+           the staff management module. This is to be 
+           injected into the dashboard via AJAX/JS.
+  ======================================================== 
+-->
+<div id="staff-management-container" class="module-container animate-fade-in">
+
+    <!-- TOP SEARCH & HEADER -->
+    <div class="module-header">
+        <div class="header-left">
+            <h2>Staff Account Management</h2>
+            <p>Control your team profiles and system access levels.</p>
+        </div>
+
+        <div class="header-right-actions">
+            <!-- EXPORT ACTION BUTTON -->
+            <button class="export-report-btn" onclick="window.toggleStaffExport(true)">
+                <i class="fa-solid fa-file-export"></i> <span>Export Executive Report</span>
+            </button>
+
+            <!-- SEARCH BOX: GLOWING MINIMALIST DESIGN -->
+            <div class="search-box glass-card">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="master-search" placeholder="Search across all staff tables..."
+                    onkeyup="filterBothTables()">
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN GRID SYSTEM (Balanced 2-Column or Stacked) -->
+    <div class="staff-grid">
+
+        <!-- SECTION 1: ADD STAFF & STAFF TABLE -->
+        <div class="glass-card section-card" data-glow="blue">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Staff Profiles</h3>
+                <button class="add-action-btn" onclick="toggleForm('staff-form-block')"><i class="fa-solid fa-plus"></i>
+                    Add New Staff</button>
+            </div>
+
+            <!-- FORM BLOCK: Hidden by Default (Sliding Down) -->
+            <div id="staff-form-block" class="form-block sliding-form">
+                <form id="add-staff-form" class="minimal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-id-card"></i> Staff ID</label>
+                            <input type="text" placeholder="e.g. STF001" name="stf_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-user"></i> Full Name</label>
+                            <input type="text" placeholder="John Doe" name="stf_name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-briefcase"></i> Role</label>
+                            <select name="stf_role" required>
+                                <option value="" disabled selected>-- Select Role --</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Cashier">Cashier</option>
+                                <option value="Regular Staff">Regular Staff</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-dollar-sign"></i> Salary (per hour)</label>
+                            <input type="number" placeholder="500" name="stf_salary" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-clock"></i> Work Time</label>
+                            <div class="time-range-group" style="display: flex; gap: 8px; align-items: center;">
+                                <input type="time" name="stf_time_start" required style="flex: 1;">
+                                <span style="color: var(--text-low); font-size: 0.8rem;">to</span>
+                                <input type="time" name="stf_time_end" required style="flex: 1;">
+                            </div>
+                        </div>
+                        <div class="form-group btn-group-end">
+                            <button type="button" class="save-btn" onclick="window.saveStaff()"><i class="fa-solid fa-check"></i> Save
+                                Profile</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLE BLOCK -->
+            <div class="table-container">
+                <table class="minimal-table" id="staff-details-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>$/Hr</th>
+                            <th>Work Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staff-table-body">
+                        <!-- Loaded dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: CREATE STAFF ACCOUNTS & ACCOUNTS TABLE -->
+        <div class="glass-card section-card" data-glow="purple">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-shield-halved"></i> Security Accounts</h3>
+                <button class="add-action-btn acc-btn" onclick="toggleForm('account-form-block')"><i
+                        class="fa-solid fa-user-shield"></i> Create Access</button>
+            </div>
+
+            <!-- ACCOUNT FORM BLOCK -->
+            <div id="account-form-block" class="form-block sliding-form">
+                <form id="create-account-form" class="minimal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-user-tag"></i> Select Employee</label>
+                            <select name="acc_staff_id" id="acc_staff_select" required>
+                                <option value="" disabled selected>-- Choose Added Staff --</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-at"></i> Username</label>
+                            <input type="text" placeholder="aslam_01" name="acc_username" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-key"></i> Password</label>
+                            <input type="password" placeholder="••••••••" name="acc_pass" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-phone"></i> Reset Phone Number</label>
+                            <input type="text" placeholder="+94 7X XXX XXXX" name="acc_phone" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label><i class="fa-solid fa-lock"></i> Permissions & Access Control</label>
+                            <div class="permission-grid">
+                                <label class="perm-check"><input type="checkbox" name="perm_stock">
+                                    <span>Stocks</span></label>
+                                <label class="perm-check"><input type="checkbox" name="perm_accessories">
+                                    <span>Accessories</span></label>
+                                <label class="perm-check"><input type="checkbox" name="perm_attendance">
+                                    <span>Attendance</span></label>
+                                <label class="perm-check"><input type="checkbox" name="perm_printer">
+                                    <span>Printer Management</span></label>
+                                <label class="perm-check"><input type="checkbox" name="perm_reload">
+                                    <span>Reload Management</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row btn-group-end">
+                        <button type="button" class="save-btn purple-btn" onclick="window.saveAccount()"><i class="fa-solid fa-shield"></i> Activate
+                            Account</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLE BLOCK -->
+            <div class="table-container">
+                <table class="minimal-table" id="staff-accounts-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Security Role</th>
+                            <th>Phone</th>
+                            <th>Permissions</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accounts-table-body">
+                        <!-- Loaded dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- QR SUCCESS MODAL -->
+    <div id="qr-success-modal" class="modal-overlay">
+        <div class="glass-card modal-content qr-modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-circle-check"></i> Registration Successful</h3>
+                <button onclick="window.closeQRModal()" class="close-btn">&times;</button>
+            </div>
+            <div class="qr-result-body">
+                <p>Staff profile created. Here is the official ID card:</p>
+                
+                <div id="printable-qr-card" class="qr-card">
+                    <div class="qr-card-header">
+                        <img src="../assets/images/Untitled%20design.png" alt="Logo">
+                        <div class="qr-card-text">
+                            <h4>CREATIVE VISION</h4>
+                            <p>Official ID Card</p>
+                        </div>
+                    </div>
+                    <div class="qr-display-area">
+                        <div id="qr-code-container"></div>
+                    </div>
+                    <div class="qr-card-details">
+                        <h2 id="qr-display-name">John Doe</h2>
+                        <p id="qr-display-role">Cashier</p>
+                        <div class="qr-card-id" id="qr-display-id">STF001</div>
+                    </div>
+                </div>
+
+                <div class="qr-modal-actions">
+                    <button class="export-btn print-btn" onclick="window.printQRCard()">
+                        <i class="fa-solid fa-print"></i> Print ID Card
+                    </button>
+                    <button class="export-btn pdf-btn" onclick="window.downloadQRCard()">
+                        <i class="fa-solid fa-download"></i> Save Image
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPORT MODAL (Restored) -->
+    <div id="staff-export-modal" class="modal-overlay">
+        <div class="glass-card modal-content export-modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-pdf"></i> Staff Executive Report</h3>
+                <button onclick="window.toggleStaffExport(false)" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="export-options">
+                <p>Generate a professional summary of your workforce and security accounts.</p>
+                <div class="export-btns">
+                    <button class="export-btn pdf-btn" onclick="window.generateStaffReport('save')">
+                        <i class="fa-solid fa-download"></i> Save as PDF
+                    </button>
+                    <button class="export-btn print-btn" onclick="window.generateStaffReport('print')">
+                        <i class="fa-solid fa-print"></i> Print Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</div>

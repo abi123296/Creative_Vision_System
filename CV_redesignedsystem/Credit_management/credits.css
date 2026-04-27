@@ -1,0 +1,173 @@
+/* 
+  ========================================================
+  STYLING: Credit Management (Liquid Glass v2)
+  ======================================================== 
+*/
+
+.credits-container {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.glass-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    background: linear-gradient(to right, #60a5fa, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-subtitle {
+    color: var(--text-low);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+/* STATS */
+.header-stats { display: flex; gap: 20px; }
+.mini-stat-card {
+    padding: 15px 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+}
+.stat-label { font-size: 0.75rem; color: var(--text-low); text-transform: uppercase; font-weight: 700; margin-bottom: 5px; }
+.stat-value { font-size: 1.4rem; font-weight: 800; color: #f87171; } /* Red for credits */
+
+/* FILTER BAR */
+.filter-bar {
+    padding: 20px 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-low);
+}
+
+.search-box input {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--card-border);
+    padding: 12px 18px 12px 48px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+.date-filters {
+    display: flex;
+    gap: 15px;
+}
+
+.date-filters input {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--card-border);
+    padding: 10px 15px;
+    border-radius: 12px;
+    color: #fff;
+    color-scheme: dark;
+}
+
+.glass-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.glass-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text-low); }
+
+/* TABLE */
+.table-section {
+    padding: 10px;
+}
+
+.table-container {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.glass-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.glass-table th {
+    position: sticky;
+    top: 0;
+    background: #0f172a; /* Solid background for sticky header */
+    padding: 18px 25px;
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-low);
+    font-weight: 700;
+    border-bottom: 1px solid var(--card-border);
+    z-index: 10;
+}
+
+.glass-table td {
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.95rem;
+    color: var(--text-high);
+}
+
+.glass-table tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+.amount-col { font-weight: 800; color: #f87171; }
+.name-col { font-weight: 700; color: #fff; }
+.date-col { font-family: 'JetBrains Mono', monospace; color: var(--text-low); font-size: 0.85rem; }
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+}

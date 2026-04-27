@@ -1,0 +1,186 @@
+<div id="attendance-module" class="module-container animate-fade-in">
+    <!-- INVISIBLE QR INPUT -->
+    <input type="text" id="qrInput" style="position:fixed; left:-9999px; opacity:0;">
+
+    <!-- MODULE HEADER -->
+    <div class="module-header glass-card" style="display:flex; justify-content:space-between; align-items:center; padding: 30px; margin-bottom: 25px;">
+        <div class="header-content">
+            <h1 style="font-size: 2rem; margin-bottom: 5px; color: #fff; letter-spacing: -0.5px;">Attendance Management</h1>
+            <p style="color: var(--text-low); font-weight: 500;">Business Day Sessions & QR Check-In</p>
+        </div>
+        <div class="header-stats">
+            <div class="stat-badge stat-active pulse-dot-wrapper" style="padding: 10px 20px; font-size:14px; display:inline-flex; align-items:center; gap:10px;">
+                <span class="pulse-dot"></span> Ready for QR Scan
+            </div>
+        </div>
+    </div>
+
+    <!-- SUMMARY SECTION -->
+    <div class="section-title">
+        <i class="fa-solid fa-chart-pie"></i> Monthly Summary
+    </div>
+    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
+        <div class="balance-card glass-card">
+            <span class="stat-label">Total Hours</span>
+            <span id="totalHours" class="stat-value" style="font-size:1.8rem;">0</span>
+        </div>
+        <div class="balance-card glass-card">
+            <span class="stat-label">Total Salary</span>
+            <span id="totalSalary" class="stat-value" style="font-size:1.8rem; color:#10b981;">Rs. 0</span>
+        </div>
+        <div class="balance-card glass-card">
+            <span class="stat-label">Credits / Advances</span>
+            <span id="totalCredits" class="stat-value" style="font-size:1.8rem; color:#ef4444;">Rs. 0</span>
+        </div>
+        <div class="balance-card glass-card">
+            <span class="stat-label">Net Balance</span>
+            <span id="totalBalance" class="stat-value" style="font-size:1.8rem; color:#3b82f6;">Rs. 0</span>
+        </div>
+    </div>
+
+    <!-- TABLE SECTION -->
+    <div class="section-title">
+        <i class="fa-solid fa-users"></i> Today's Sessions
+    </div>
+    <div class="glass-card table-container" style="padding: 25px; overflow-x: auto; margin-bottom: 40px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+            <thead>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-low);">
+                    <th style="padding: 15px; font-weight: 700;">Name</th>
+                    <th style="padding: 15px; font-weight: 700;">ID</th>
+                    <th style="padding: 15px; font-weight: 700;">Role</th>
+                    <th style="padding: 15px; font-weight: 700;">Check In</th>
+                    <th style="padding: 15px; font-weight: 700;">Check Out</th>
+                    <th style="padding: 15px; font-weight: 700;">Hours</th>
+                    <th style="padding: 15px; font-weight: 700;">Salary/Hr</th>
+                    <th style="padding: 15px; font-weight: 700;">Total Salary</th>
+                    <th style="padding: 15px; font-weight: 700;">Credit</th>
+                    <th style="padding: 15px; font-weight: 700;">Net Balance</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceBody">
+                <!-- Data goes here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CREDIT DETAILS ACTIONS -->
+    <div style="display:flex; justify-content: flex-end; gap: 15px; margin: 40px 0 20px 0;">
+        <button class="finalize-salary-btn" onclick="window.finalizeSalary()">
+            <i class="fa-solid fa-file-invoice-dollar"></i> Finalize Salary
+        </button>
+        <button class="view-credits-btn" onclick="window.viewCreditsToday()">
+            <i class="fa-solid fa-clock-rotate-left"></i> Credit Details
+        </button>
+    </div>
+
+    <!-- ADD CREDIT MODAL -->
+    <div id="addCreditModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content modal-pop" style="max-width: 450px;">
+            <div class="modal-header">
+                <h2>💸 Add Credit / Advance</h2>
+                <button class="close-modal" onclick="window.closeCreditModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <input type="hidden" id="creditStaffId">
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight:bold; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Staff Member</label>
+                <div class="input-area">
+                    <input type="text" id="creditStaffName" class="balance-input" readonly style="opacity:0.7;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight:bold; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Amount (Rs.)</label>
+                <div class="input-area">
+                    <input type="number" id="creditAmount" class="balance-input" placeholder="0.00" style="font-size: 1.5rem; width:100%; color: #ef4444;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 20px;">
+                <label style="display:block; font-size:12px; font-weight:bold; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Reason (Optional)</label>
+                <div class="input-area">
+                    <input type="text" id="creditReason" class="balance-input" placeholder="e.g. Personal Advance" style="width:100%;">
+                </div>
+            </div>
+
+            <div class="input-container" style="margin-bottom: 25px;">
+                <label style="display:block; font-size:12px; font-weight:bold; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Authorized By</label>
+                <div class="input-area">
+                    <input type="text" id="creditGivenBy" class="balance-input" placeholder="Who is giving this?" style="width:100%;">
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content: flex-end; gap: 15px;">
+                <button class="edit-action-btn" style="padding: 12px 25px;" onclick="window.closeCreditModal()">Cancel</button>
+                <button class="primary-btn" style="padding: 12px 25px; background: #ef4444;" onclick="window.saveCredit()">Issue Credit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW CREDITS AUDIT MODAL -->
+    <div id="viewCreditsModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content modal-pop" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>📋 Today's Credit Audit Log</h2>
+                <button class="close-modal" onclick="window.closeViewCreditsModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="glass-card" style="padding: 0; overflow: hidden; background: rgba(0,0,0,0.2);">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);">
+                            <th style="padding: 15px; color: var(--text-low);">Staff Name</th>
+                            <th style="padding: 15px; color: var(--text-low);">Amount</th>
+                            <th style="padding: 15px; color: var(--text-low);">Staff History</th>
+                            <th style="padding: 15px; color: var(--text-low);">Reason</th>
+                            <th style="padding: 15px; color: var(--text-low);">Authorized By</th>
+                            <th style="padding: 15px; color: var(--text-low);">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="viewCreditsBody">
+                        <!-- Data goes here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display:flex; justify-content: flex-end; margin-top: 25px;">
+                <button class="primary-btn" style="padding: 12px 30px;" onclick="window.closeViewCreditsModal()">Close Audit Log</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LINK QR MODAL (For Pairing) -->
+    <div id="linkQrModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content modal-pop" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>🔗 Link Unknown QR</h2>
+                <button class="close-modal" onclick="document.getElementById('linkQrModal').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <p style="color: var(--text-low); margin-bottom: 20px; font-size: 0.95rem;">
+                This QR code is not registered. Which staff member does this belong to?
+            </p>
+
+            <div class="input-container" style="margin-bottom: 25px;">
+                <label style="display:block; font-size:12px; font-weight: 700; color: var(--text-low); margin-bottom:5px; text-transform:uppercase;">Select Staff Member</label>
+                <div class="input-area">
+                    <select id="linkStaffSelect" class="balance-input cursor-pointer" style="font-size: 1.1rem; width:100%;">
+                        <!-- Populated via JS -->
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" id="pendingQrCode">
+
+            <div style="display:flex; justify-content: flex-end; gap: 15px;">
+                <button class="edit-action-btn" style="padding: 12px 25px;" onclick="document.getElementById('linkQrModal').classList.remove('show')">Cancel</button>
+                <button class="primary-btn" style="padding: 12px 25px;" onclick="saveQrLink()">Link QR Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE RESOURCES -->
+    <link rel="stylesheet" href="../Attendance_management/attendance.css?v=1.0.3">
+    <script src="../Attendance_management/attendance.js?v=1.0.3"></script>
+</div>
