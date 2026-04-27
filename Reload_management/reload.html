@@ -1,0 +1,269 @@
+<div id="reload-module" class="module-container animate-fade-in">
+    <!-- MODULE HEADER -->
+    <div class="module-header glass-card">
+        <div class="header-content">
+            <h1>Reload & Card Inventory</h1>
+            <p>Creative Vision Management System</p>
+        </div>
+        <div class="header-stats">
+            <div class="mini-stat">
+                <span class="stat-label">Total Balance</span>
+                <span id="total-reload-value" class="stat-value">Rs. 0.00</span>
+            </div>
+            <div class="mini-stat text-purple">
+                <span class="stat-label">Stock Status</span>
+                <span class="stat-value">Active</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NETWORK BALANCE SECTION -->
+    <div class="section-title">
+        <i class="fa-solid fa-tower-broadcast"></i> Network Digital Balance
+    </div>
+    <div class="network-grid">
+        <!-- Dialog -->
+        <div class="balance-card glass-card" data-network="dialog">
+            <div class="card-top">
+                <div class="network-icon dialog-bg">
+                    <i class="fa-solid fa-signal"></i>
+                </div>
+                <h3>Dialog</h3>
+            </div>
+            <div class="input-area">
+                <span class="currency-prefix">Rs.</span>
+                <input type="number" id="dialogBalance" class="balance-input" placeholder="0.00" readonly>
+            </div>
+            <button class="edit-action-btn" onclick="window.enableReloadEdit('dialogBalance')">
+                <i class="fa-solid fa-pen"></i> Edit Balance
+            </button>
+        </div>
+
+        <!-- Mobitel -->
+        <div class="balance-card glass-card" data-network="mobitel">
+            <div class="card-top">
+                <div class="network-icon mobitel-bg">
+                    <i class="fa-solid fa-signal"></i>
+                </div>
+                <h3>Mobitel</h3>
+            </div>
+            <div class="input-area">
+                <span class="currency-prefix">Rs.</span>
+                <input type="number" id="mobitelBalance" class="balance-input" placeholder="0.00" readonly>
+            </div>
+            <button class="edit-action-btn" onclick="window.enableReloadEdit('mobitelBalance')">
+                <i class="fa-solid fa-pen"></i> Edit Balance
+            </button>
+        </div>
+
+        <!-- Airtel -->
+        <div class="balance-card glass-card" data-network="airtel">
+            <div class="card-top">
+                <div class="network-icon airtel-bg">
+                    <i class="fa-solid fa-signal"></i>
+                </div>
+                <h3>Airtel</h3>
+            </div>
+            <div class="input-area">
+                <span class="currency-prefix">Rs.</span>
+                <input type="number" id="airtelBalance" class="balance-input" placeholder="0.00" readonly>
+            </div>
+            <button class="edit-action-btn" onclick="window.enableReloadEdit('airtelBalance')">
+                <i class="fa-solid fa-pen"></i> Edit Balance
+            </button>
+        </div>
+
+        <!-- Hutch -->
+        <div class="balance-card glass-card" data-network="hutch">
+            <div class="card-top">
+                <div class="network-icon hutch-bg">
+                    <i class="fa-solid fa-signal"></i>
+                </div>
+                <h3>Hutch</h3>
+            </div>
+            <div class="input-area">
+                <span class="currency-prefix">Rs.</span>
+                <input type="number" id="hutchBalance" class="balance-input" placeholder="0.00" readonly>
+            </div>
+            <button class="edit-action-btn" onclick="window.enableReloadEdit('hutchBalance')">
+                <i class="fa-solid fa-pen"></i> Edit Balance
+            </button>
+        </div>
+    </div>
+
+    <!-- CARD STOCK SECTIONS -->
+    <div class="section-title">
+        <i class="fa-solid fa-sim-card"></i> Scratch Card Inventory
+    </div>
+    
+    <div class="cards-master-grid">
+        <!-- DIALOG CARDS -->
+        <div class="network-stock-container glass-card" data-network="dialog">
+            <div class="stock-header">
+                <span class="dot dialog-dot"></span>
+                <h4>Dialog Cards</h4>
+            </div>
+            <div class="stock-inputs-row">
+                <div class="stock-item">
+                    <label>Rs. 100</label>
+                    <input type="number" class="card-input" data-network="Dialog" data-value="100" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 159</label>
+                    <input type="number" class="card-input" data-network="Dialog" data-value="159" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 195</label>
+                    <input type="number" class="card-input" data-network="Dialog" data-value="195" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBITEL CARDS -->
+        <div class="network-stock-container glass-card" data-network="mobitel">
+            <div class="stock-header">
+                <span class="dot mobitel-dot"></span>
+                <h4>Mobitel Cards</h4>
+            </div>
+            <div class="stock-inputs-row">
+                <div class="stock-item">
+                    <label>Rs. 58</label>
+                    <input type="number" class="card-input" data-network="Mobitel" data-value="58" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 50</label>
+                    <input type="number" class="card-input" data-network="Mobitel" data-value="50" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 100</label>
+                    <input type="number" class="card-input" data-network="Mobitel" data-value="100" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 118</label>
+                    <input type="number" class="card-input" data-network="Mobitel" data-value="118" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- AIRTEL CARDS -->
+        <div class="network-stock-container glass-card" data-network="airtel">
+            <div class="stock-header">
+                <span class="dot airtel-dot"></span>
+                <h4>Airtel Cards</h4>
+            </div>
+            <div class="stock-inputs-row">
+                <div class="stock-item">
+                    <label>Rs. 99</label>
+                    <input type="number" class="card-input" data-network="Airtel" data-value="99" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 100</label>
+                    <input type="number" class="card-input" data-network="Airtel" data-value="100" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 50</label>
+                    <input type="number" class="card-input" data-network="Airtel" data-value="50" placeholder="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- HUTCH CARDS -->
+        <div class="network-stock-container glass-card" data-network="hutch">
+            <div class="stock-header">
+                <span class="dot hutch-dot"></span>
+                <h4>Hutch Cards</h4>
+            </div>
+            <div class="stock-inputs-row">
+                <div class="stock-item">
+                    <label>Rs. 100</label>
+                    <input type="number" class="card-input" data-network="Hutch" data-value="100" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 50</label>
+                    <input type="number" class="card-input" data-network="Hutch" data-value="50" placeholder="0">
+                </div>
+                <div class="stock-item">
+                    <label>Rs. 159</label>
+                    <input type="number" class="card-input" data-network="Hutch" data-value="159" placeholder="0">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EZ CASH SECTION -->
+    <div class="ezcash-section glass-card">
+        <div class="ez-header">
+            <div class="ez-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+            <div class="ez-text">
+                <h3>Ez Cash Balance</h3>
+                <p>Digital wallet liquidity management</p>
+            </div>
+        </div>
+        <div class="ez-input-area">
+            <div class="input-wrapper">
+                <span class="prefix">Rs.</span>
+                <input type="number" id="ezcashBalance" class="balance-input" placeholder="0.00" readonly>
+            </div>
+            <button class="primary-btn" onclick="window.enableReloadEdit('ezcashBalance')">
+                <i class="fa-solid fa-pen-to-square"></i> Edit EzCash
+            </button>
+        </div>
+    </div>
+
+    <!-- EXPORT BUTTON AREA -->
+    <div class="export-area" style="margin-top:25px; margin-bottom:25px; display:flex; justify-content:center;">
+         <button class="export-report-btn primary-btn" onclick="window.toggleReloadExportModal()" style="background:linear-gradient(135deg, #10b981, #059669); font-weight:bold; font-size:1.1rem; padding: 12px 30px;">
+             <i class="fa-solid fa-file-export"></i> EXPORT RELOAD REPORT
+         </button>
+    </div>
+
+    <!-- EXPORT MENU MODAL -->
+    <div id="export-reload-modal" class="modal-overlay" style="display: none; z-index: 10001; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center;">
+        <div class="modal-content glass-card" style="width: 400px; text-align: center; background: rgba(10, 20, 40, 0.95);">
+            <div class="modal-header">
+                <h2>Generate Official Report</h2>
+                <button class="close-modal" onclick="window.toggleReloadExportModal()" style="background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">Choose your preferred professional format:</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <button class="btn-save" onclick="window.generateReloadReport('save')" style="background:linear-gradient(135deg, #3b82f6, #06b6d4);">
+                    <i class="fa-solid fa-file-pdf"></i> SAVE PDF
+                </button>
+                <button class="btn-save" onclick="window.generateReloadReport('print')" style="background:linear-gradient(135deg, #8b5cf6, #d946ef);">
+                    <i class="fa-solid fa-print"></i> PRINT REPORT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HIDDEN REPORT CONTAINER (FOR A4 PDF EXACT DIMENSIONS) -->
+    <div id="hidden-reload-report" style="display:none; position:fixed; top:-9999px; left:-9999px; background:white; z-index:9999;"></div>
+
+    <!-- GLOBAL ACTIONS -->
+    <div class="action-footer">
+        <button class="master-save-btn" onclick="window.saveAllReloadData()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> SAVE / UPDATE ALL
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- MODULE RESOURCES (Versioned to force refresh) -->
+    <link rel="stylesheet" href="../Reload_management/reload.css?v=1.0.2">
+    <script src="../Reload_management/reload.js?v=1.0.2"></script>
+    <script>
+        // IMMEDIATE SECURITY GUARD
+        (function() {
+            function lock() {
+                if (typeof window.checkPermission === 'function' && !window.checkPermission('Reload Management')) {
+                    // Hide everything: Edit buttons, EzCash, and Master Save
+                    document.querySelectorAll('.edit-action-btn, .master-save-btn, button[onclick*="enableReloadEdit"], .ez-input-area .primary-btn').forEach(el => el.style.display = 'none');
+                }
+            }
+            lock();
+            setTimeout(lock, 500); 
+            setTimeout(lock, 1500);
+        })();
+    </script>
+</div>
